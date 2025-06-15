@@ -1,4 +1,4 @@
-import 'package:deshi_mart/shared/appColors.dart';
+import 'package:deshi_mart/core/appColors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/Group 3.png'),
+            Image.asset('assets/Group 3.png', ),
             SizedBox(height: 10.sp),
             Text(
               'DESHI MART',
