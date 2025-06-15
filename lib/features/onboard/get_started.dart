@@ -2,6 +2,7 @@ import 'package:deshi_mart/core/appColors.dart';
 import 'package:deshi_mart/core/constants.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
@@ -57,20 +58,30 @@ class _GetStartedState extends State<GetStarted> {
                   ),
                 ),
                 SizedBox(height: 20.sp),
+
                 Expanded(
-                  child: ListView.separated(
-                    itemBuilder:
-                        (context, index) => Padding(
+                  child: ListView.builder(
+                    itemCount:
+                        AppConstants.deshi_list.length * 2 -
+                        1 +
+                        1, // Items + separators + final separator
+                    itemBuilder: (context, index) {
+                      if (index.isEven) {
+                        // Content item
+                        int itemIndex = index ~/ 2;
+                        return Padding(
                           padding: EdgeInsets.symmetric(vertical: 10.sp),
                           child: Row(
                             children: [
                               Image.asset(
-                                AppConstants.deshi_list[index]['image']!,
-                                fit: BoxFit.contain,
+                                AppConstants.deshi_list[itemIndex]['image']!,
+                                fit: BoxFit.fitHeight,
+                                width: 23.sp,
+                                height: 20.sp,
                               ),
                               SizedBox(width: 20.sp),
                               Text(
-                                AppConstants.deshi_list[index]['String']!,
+                                AppConstants.deshi_list[itemIndex]['String']!,
                                 style: GoogleFonts.poppins(
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w600,
@@ -78,15 +89,74 @@ class _GetStartedState extends State<GetStarted> {
                               ),
                             ],
                           ),
-                        ),
-                    separatorBuilder:
-                        (context, index) => Container(
+                        );
+                      } else {
+                        // Separator item (including one after the last item)
+                        return Container(
                           decoration: DottedDecoration(shape: Shape.line),
-                        ),
-                    itemCount: AppConstants.deshi_list.length,
+                          margin: EdgeInsets.symmetric(vertical: 5.sp),
+                        );
+                      }
+                    },
                   ),
                 ),
               ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: EdgeInsets.all(20.sp).copyWith(bottom: 25.sp),
+              height: 30.h,
+              width: 100.w,
+              decoration: BoxDecoration(
+                color: AppColors.mainColor,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(20.sp),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    'Welcome to our store',
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10.sp),
+                  Text(
+                    'Get your grocery in as fast as\n one hour.',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Spacer(),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.go('/sign-in');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(100.w, 30.sp),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.sp),
+                      ),
+                    ),
+                    child: Text(
+                      'GET STARTED',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.mainColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
