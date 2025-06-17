@@ -147,7 +147,9 @@ class _SingInState extends State<SingIn> {
             ),
             SizedBox(height: 20.sp),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.go('/homescreen');
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.mainColor,
                 fixedSize: Size(100.w, 30.sp),
@@ -189,7 +191,7 @@ class _SingInState extends State<SingIn> {
                     recognizer:
                         TapGestureRecognizer()
                           ..onTap = () {
-                         //   print('yes');
+                            //   print('yes');
                             context.go('/sign-up');
                           },
                   ),
